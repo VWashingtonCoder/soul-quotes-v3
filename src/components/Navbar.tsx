@@ -33,7 +33,9 @@ const Navbar = ({ page, changePage }: NavbarProps) => {
               key={key}
               className={`clear-btn nav-btn ${page === key ? "active" : ""}`}
               onClick={() => {
-                key === "accounts" && username ? logoutActiveUser() : changePage(key);
+                key === "accounts" && username
+                  ? logoutActiveUser()
+                  : changePage(key);
               }}
             >
               {btnText}
