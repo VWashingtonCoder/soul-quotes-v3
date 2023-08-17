@@ -1,20 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useEffectOnce } from "../../custom-hooks/useEffectOnce";
+import { useQuote } from "../../custom-hooks/useCustomContext";
 import { Quote } from "../../types";
-import {
-  useQuote,
-  useUser,
-  useFavorites,
-} from "../../custom-hooks/useCustomContext";
 import CategorySelect from "../CategorySelect";
 import QuoteCard from "../QuoteCard";
 import "./HomePage.css";
 
 function HomePage() {
   const { quoteList } = useQuote();
-  const { activeUser } = useUser();
-  const { userFavoriteCodes } = useFavorites();
   const [homeQuotes, setHomeQuotes] = useState([] as Quote[]);
-  const [categoryQuotes, setCategoryQuotes] = useState([] as Quote[]);
+  const [categoryQuotes, setCategoryQuotes] = useState(quoteList);
   const [searchCategory, setSearchCategory] = useState("all");
 
   const changeAllHomeQuotes = (quotes: Quote[]) => {
@@ -41,27 +36,17 @@ function HomePage() {
   };
 
   const getCategoryQuotes = () => {
-    if (searchCategory !== "all") {
-      const quotes = quoteList.filter(
-        (quote) => quote.category === searchCategory
-      );
-      changeAllHomeQuotes(quotes);
-      setCategoryQuotes(quotes);
-    } else {
-      changeAllHomeQuotes(quoteList);
-      setCategoryQuotes([] as Quote[]);
-    }
+    const quotes =
+      searchCategory === "all"
+        ? quoteList
+        : quoteList.filter((quote) => quote.category === searchCategory);
+    changeAllHomeQuotes(quotes);
+    setCategoryQuotes(quotes);
   };
 
-  useEffect(() => {
-    console.log(categoryQuotes);
-    console.log(homeQuotes);
-  }, [homeQuotes, categoryQuotes]);
-
-  //   const toggleFavorite = (favoriteStatus: boolean, idx: number) => {
-  //     if (!favoriteStatus) addToFavorites(homeQuotes[idx].quoteId);
-  //     else removeFromFavorites(homeQuotes[idx].quoteId);
-  //   };
+  useEffectOnce(() => {
+    changeAllHomeQuotes(quoteList);
+  });
 
   return (
     <section className="page home">
@@ -78,25 +63,22 @@ function HomePage() {
         onChange={(e) => setSearchCategory(e.target.value)}
       />
 
-      <div className="quotes-box flex-between-center">
-        {/* 
+      <div className="quotes-box flex-between-center"> 
         {homeQuotes.map((quote, idx) => {
-          const isFavorite = userFavorites.includes(quote.quoteId);
-          const isUser = username !== undefined;
-
+          console.log(quote)
+          console.log(`idx: ${idx}`)
           return (
-            <QuoteCard
-              key={`card-${idx}`}
-              cardData={quote}
-              idx={idx}
-              isFavorite={isFavorite}
-              isUser={isUser}
-              changeOne={changeOneQuote}
-              toggleFavorite={toggleFavorite}
-            />
+            <>
+            </>
+
+            // <QuoteCard 
+            //   key={`card-${idx}`}
+            //   cardData={quote}
+            //   idx={idx}
+            //   changeOne={changeOneHomeQuote}
+            // />
           );
         })} 
-        */}
       </div>
     </section>
   );

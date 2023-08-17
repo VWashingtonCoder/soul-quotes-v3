@@ -1,9 +1,9 @@
 import { createContext, useState } from "react";
 import { useEffectOnce } from "../custom-hooks/useEffectOnce";
-import { ChildrenProps, StringObject, User } from "../types";
+import { ChildrenProps, User } from "../types";
 
 export type UserContextType = {
-  activeUser: User | null;
+  activeUser: User;
   logoutActiveUser: () => void;
 };
 
@@ -25,18 +25,18 @@ export const UserProvider = ({ children }: ChildrenProps) => {
   useEffectOnce(() => {
     const user = localStorage.getItem("active-user");
     if (user) setActiveUser(JSON.parse(user));
-    else
-      loginActiveUser({
-        id: 2,
-        username: "testUser3",
-        email: "tu3@ex.co",
-        password: "Password3",
-      });
+    // else
+    //   loginActiveUser({
+    //     id: 2,
+    //     username: "testUser3",
+    //     email: "tu3@ex.co",
+    //     password: "Password3",
+    //   });
   });
 
   const providerValue = {
     activeUser,
-    logoutActiveUser
+    logoutActiveUser,
   };
 
   return (

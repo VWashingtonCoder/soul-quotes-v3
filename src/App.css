@@ -42,6 +42,10 @@
   background-color: #ccc;
 }
 
+.icon {
+  /* pointer-events: none; */
+}
+
 /*Navbar*/
 .navbar {
   margin-top: -1rem;
