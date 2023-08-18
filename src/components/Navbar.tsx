@@ -1,5 +1,5 @@
 import logo from "../assets/images/logo.png";
-import { useUser } from "../custom-hooks/useCustomContext";
+import { useAppProvider } from "../custom-hooks/useCustomContext";
 
 type NavbarProps = {
   page: string;
@@ -14,9 +14,12 @@ const navLinks = [
 ];
 
 const Navbar = ({ page, changePage }: NavbarProps) => {
-  const { activeUser, logoutActiveUser } = useUser();
+  const { activeUser, logoutActiveUser } = useAppProvider();
   const username = activeUser?.username || "";
 
+  console.log(username)
+  console.log(activeUser)
+  
   return (
     <header className="navbar flex-between-center">
       <div className="logo-box">
