@@ -4,6 +4,7 @@ import { useEffectOnce } from "../../custom-hooks/useEffectOnce";
 import { Quote } from "../../types";
 import "./HomePage.css";
 import CategorySelect from "../CategorySelect";
+import QuoteCard from "../QuoteCard";
 
 function HomePage() {
   const { quoteList } = useAppProvider();
@@ -71,6 +72,17 @@ function HomePage() {
         }}
         onClick={filterQuotes}
       />
+
+      <div className="quotes-box flex-between-center">
+        {homeQuotes.map((quote, index) => (
+          <QuoteCard
+            key={quote.id}
+            cardData={quote}
+            idx={index}
+            changeOne={changeOneHomeQuote}
+          />
+        ))}
+      </div>
     </section>
   );
 }

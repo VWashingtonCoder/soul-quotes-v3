@@ -3,17 +3,22 @@ import { TfiReload } from "react-icons/tfi";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
 type QuoteCardProps = {
-//   cardData: Quote;
-//   idx: number;
+  cardData: Quote;
+  idx: number;
 //   isFavorite: boolean;
 //   isUser: boolean;
-//   changeOne: (idx: number) => void;
+  changeOne: (idx: number) => void;
 //   toggleFavorite: (favoriteStatus: boolean, idx: number) => void;
 };
 
 const QuoteCard = (props: QuoteCardProps) => {
   const { 
-    // cardData, idx, isFavorite, isUser, changeOne, toggleFavorite 
+    cardData, 
+    idx, 
+    // isFavorite, 
+    // isUser, 
+    changeOne, 
+    // toggleFavorite 
 } =
     props;
   const { quote, author, category } = cardData;
@@ -37,6 +42,7 @@ const QuoteCard = (props: QuoteCardProps) => {
           <TfiReload className="icon reload" />
         </button>
         
+{/*         
         {isUser && (
           <button
             className="card-btn"
@@ -51,7 +57,8 @@ const QuoteCard = (props: QuoteCardProps) => {
               <MdFavoriteBorder className="icon favorite" />
             )}
           </button>
-        )}
+        )} 
+        */}
       </div>
     </div>
   );
