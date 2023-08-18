@@ -17,9 +17,6 @@ const Navbar = ({ page, changePage }: NavbarProps) => {
   const { activeUser, logoutActiveUser } = useAppProvider();
   const username = activeUser?.username || "";
 
-  console.log(username)
-  console.log(activeUser)
-  
   return (
     <header className="navbar flex-between-center">
       <div className="logo-box">
@@ -36,7 +33,9 @@ const Navbar = ({ page, changePage }: NavbarProps) => {
               key={key}
               className={`clear-btn nav-btn ${page === key ? "active" : ""}`}
               onClick={() => {
-                key === "accounts" && username ? logoutActiveUser() : changePage(key);
+                key === "accounts" && username
+                  ? logoutActiveUser()
+                  : changePage(key);
               }}
             >
               {btnText}
