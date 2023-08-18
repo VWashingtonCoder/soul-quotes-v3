@@ -61,14 +61,14 @@ export const AppProvider = ({ children }: ChildrenProps) => {
       refreshFavoriteCodes(localUser.username);
       loginActiveUser(localUser);
     } else {
-        const testUser = {
-            id: 2,
-            username: "testUser3",
-            email: "tu3@ex.co",
-            password: "Password3",
-        }
-        refreshFavoriteCodes(testUser.username);
-        loginActiveUser(testUser);
+      const testUser = {
+        id: 2,
+        username: "testUser3",
+        email: "tu3@ex.co",
+        password: "Password3",
+      };
+      refreshFavoriteCodes(testUser.username);
+      loginActiveUser(testUser);
     }
 
     refreshQuoteList();
