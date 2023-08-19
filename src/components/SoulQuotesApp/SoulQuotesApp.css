@@ -1,0 +1,33 @@
+
+/*Navbar*/
+.navbar {
+  margin-top: -1rem;
+  padding: 0 0 1rem;
+}
+
+.navbar .logo-box {
+  max-width: 600px;
+  position: relative;
+  right: 15%;
+}
+
+.navbar .logo,
+.nav-btn {
+  color: whitesmoke;
+  font-size: 2rem;
+}
+
+.navbar .logo {
+  font-weight: 700;
+}
+
+.nav-links {
+  width: 55%;
+}
+
+.nav-btn.active {
+  color: blueviolet;
+}
+.nav-btn:hover {
+  color: #1e90ff;
+}
