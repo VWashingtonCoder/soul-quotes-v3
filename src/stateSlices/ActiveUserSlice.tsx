@@ -6,6 +6,13 @@ export interface ActiveUserState {
   value: User;
 }
 
+const testUser = {
+  id: 2,
+  username: "testUser3",
+  password: "Password3",
+  email: "tu3@ex.co",
+};
+
 const initialState: ActiveUserState = {
   value: {} as User,
 };

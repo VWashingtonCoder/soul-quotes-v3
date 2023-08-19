@@ -1,4 +1,4 @@
-import logo from "../../assets/images/logo.png";
+import logo from "../assets/images/logo.png";
 import { useAppDispatch, useAppSelector } from "../custom-hooks/reduxHooks";
 import { logoutActiveUser } from "../stateSlices/ActiveUserSlice";
 
@@ -18,9 +18,6 @@ const Navbar = ({ page, changePage }: NavbarProps) => {
   const activeUser = useAppSelector((state) => state.activeUser.value);
   const dispatch = useAppDispatch();
   const username = activeUser?.username || "";
-
-  console.log("activeUser", activeUser);
-  console.log("username", username);
 
   return (
     <header className="navbar flex-between-center">

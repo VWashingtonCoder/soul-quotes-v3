@@ -13,9 +13,7 @@ function App() {
     const activeUser = localStorage.getItem("active-user");
     if (activeUser) {
       dispatch(loginActiveUser(JSON.parse(activeUser)));
-      dispatch(
-        getUserFavoriteCodes(JSON.parse(activeUser).username)
-      );
+      dispatch(getUserFavoriteCodes(JSON.parse(activeUser).username));
     }
     dispatch(updateQuoteList());
   });
