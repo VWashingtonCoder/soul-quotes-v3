@@ -1,10 +1,10 @@
-import "./App.css";
 import { useEffectOnce } from "./custom-hooks/useEffectOnce";
 import { useAppDispatch } from "./custom-hooks/reduxHooks";
 import { loginActiveUser } from "./stateSlices/ActiveUserSlice";
-import { getUserFavoriteCodes } from "./stateSlices/userFavoriteCodesSlice";
+import { getUserFavorites } from "./stateSlices/userFavoritesSlice";
 import { updateQuoteList } from "./stateSlices/quoteListSlice";
 import SoulQuotesApp from "./components/SoulQuotesApp/SoulQuotesApp";
+import "./App.css";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ function App() {
     const activeUser = localStorage.getItem("active-user");
     if (activeUser) {
       dispatch(loginActiveUser(JSON.parse(activeUser)));
-      dispatch(getUserFavoriteCodes(JSON.parse(activeUser).username));
+      dispatch(getUserFavorites(JSON.parse(activeUser).username));
     }
     dispatch(updateQuoteList());
   });

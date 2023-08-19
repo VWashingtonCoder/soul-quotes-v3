@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { quoteListSlice } from "./stateSlices/quoteListSlice";
 import { activeUserSlice } from "./stateSlices/ActiveUserSlice";
-import { userFavoriteCodesSlice } from "./stateSlices/userFavoriteCodesSlice";
+import { userFavoritesSlice } from "./stateSlices/userFavoritesSlice";
 
 const store = configureStore({
   reducer: {
     quoteList: quoteListSlice.reducer,
     activeUser: activeUserSlice.reducer,
-    userFavoriteCodes: userFavoriteCodesSlice.reducer,
+    userFavorites: userFavoritesSlice.reducer,
   },
 });
 

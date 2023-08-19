@@ -3,81 +3,125 @@ const BASE_URL = "http://localhost:3000";
 
 // Users
 export async function getUserByUsername(username: string) {
-  const params = `users/?username=${username}`;
-  const res = await fetch(`${BASE_URL}/${params}`);
-  const data = await res.json();
-  return data;
+  const user = await fetch(`${BASE_URL}/users/?username=${username}`);
+
+  if (user.status === 404) {
+    alert("Error getting user by username");
+    return {} as User;
+  }
+
+  return await user.json();
 }
 
 export async function getUserByEmail(email: string) {
-  const params = `users/?email=${email}`;
-  const res = await fetch(`${BASE_URL}/${params}`);
-  const data = await res.json();
-  return data;
+  const user = await fetch(`${BASE_URL}/users/?email=${email}`);
+  
+  if (user.status === 404) {
+    alert("Error getting user by email");
+    return {} as User;
+  }
+
+  return await user.json();
 }
 
-export async function postNewUser(user: User) {
-  const res = await fetch(`${BASE_URL}/users`, {
+export function postNewUser(user: User) {
+  fetch(`${BASE_URL}/users`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(user),
-  });
-  const data = await res.json();
-  return data;
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+      alert("Error posting new user");
+    });
 }
 
 // Quotes
 export async function getAllQuotes() {
-  const res = await fetch(`${BASE_URL}/quotesList`);
-  const data = await res.json();
-  return data;
+  const allQuotes = await fetch(`${BASE_URL}/quotesList`);
+
+  if (allQuotes.status === 404) {
+    alert("Error getting all quotes");
+    return [] as Quote[];
+  }
+
+  return await allQuotes.json();
 }
 
-export async function postNewQuote(quote: Quote) {
-  const res = await fetch(`${BASE_URL}/quotesList`, {
+export function postNewQuote(quote: Quote) {
+  fetch(`${BASE_URL}/quotesList`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(quote),
     redirect: "follow",
-  });
-  const data = await res.json();
-  return data;
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+      alert("Error posting new quote");
+    });
 }
 
-export async function deleteQuote(id: number) {
-  const res = await fetch(`${BASE_URL}/quotesList/${id}`, {
+export function deleteQuote(id: number) {
+  fetch(`${BASE_URL}/quotesList/${id}`, {
     method: "DELETE",
-  });
-  return res.status;
+  })
+    .then((res) => res.status)
+    .catch((err) => {
+      console.log(err);
+      alert("Error deleting quote");
+    });
 }
 
 // Favorites
 export async function getFavoritesByUsername(username: string) {
-  const params = `favoriteUserQuotes/?username=${username}`;
-  const res = await fetch(`${BASE_URL}/${params}`);
-  const data = await res.json();
-  return data;
+  const params = `?username=${username}`;
+  const favorites = await fetch(`${BASE_URL}/favoriteUserQuotes/${params}}`)
+    
+  if (favorites.status === 404) {
+    alert("Error getting favorites by username");
+    return [] as Favorite[];
+  }
+  
+  return await favorites.json();
 }
 
-export async function postNewFavorite(favorite: Favorite) {
-  const res = await fetch(`${BASE_URL}/favoriteUserQuotes`, {
+export function postNewFavorite(favorite: Favorite) {
+  fetch(`${BASE_URL}/favoriteUserQuotes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(favorite),
-  });
-  const data = await res.json();
-  return data;
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+      alert("Error posting new favorite");
+    });
 }
 
-export async function deleteFavorite(id: number) {
-  const res = await fetch(`${BASE_URL}/favoriteUserQuotes/${id}`, {
+export function deleteFavorite(id: number) {
+  fetch(`${BASE_URL}/favoriteUserQuotes/${id}`, {
     method: "DELETE",
-  });
-  return res.status;
+  })
+    .then((res) => res.status)
+    .catch((err) => {
+      console.log(err);
+      alert("Error deleting favorite");
+    });
 }
