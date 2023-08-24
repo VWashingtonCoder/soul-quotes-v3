@@ -42,3 +42,11 @@
   font-size: 2rem;
   text-decoration: underline;
 }
+
+.nav-link:hover {
+  color: #f50057;
+}
+
+.nav-link.active {
+  color: cornflowerblue;
+}
