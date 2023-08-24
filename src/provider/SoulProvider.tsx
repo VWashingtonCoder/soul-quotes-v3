@@ -12,6 +12,8 @@ export type SoulProviderType = {
   refreshUsers: () => void;
   refreshQuotes: () => void;
   refreshFavorites: () => void;
+  loginUser: (user: User) => void;
+  logoutUser: () => void;
 };
 
 export const SoulContext = createContext({} as SoulProviderType);
@@ -52,16 +54,24 @@ export const SoulProvider = ({ children }: ChildrenProps) => {
       });
   };
 
+  const loginUser = (user: User) => {
+    setActiveUser(user);
+    localStorage.setItem("active-user", JSON.stringify(user));
+    const userFavorites = favorites.filter(
+      (favorite) => favorite.username === user.username
+    );
+    setActiveFavoriteCodes(userFavorites.map((favorite) => favorite.code));
+  }
+
+  const logoutUser = () => {
+    setActiveUser({} as User);
+    localStorage.removeItem("active-user");
+    setActiveFavoriteCodes([] as string[]);
+  }
+
   const checkForLocalUser = () => {
     const user = localStorage.getItem("active-user");
-    if (user) {
-      const localUser = JSON.parse(user);
-      const localFavorites = favorites.filter(
-        (favorite) => favorite.username === localUser.username
-      );
-      setActiveUser(localUser);
-      setActiveFavoriteCodes(localFavorites.map((favorite) => favorite.code));
-    }
+    if (user) loginUser(JSON.parse(user));
   };
 
   useEffectOnce(() => {
@@ -80,6 +90,8 @@ export const SoulProvider = ({ children }: ChildrenProps) => {
     refreshUsers,
     refreshQuotes,
     refreshFavorites,
+    loginUser,
+    logoutUser
   };
 
   return (
