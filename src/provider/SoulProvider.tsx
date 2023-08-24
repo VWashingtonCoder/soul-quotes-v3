@@ -1,13 +1,9 @@
 import { createContext, useState } from "react";
-import { useEffectOnce } from "../custom-hooks/useEffectOnce";
+import { useEffectOnce } from "../custom-hooks";
 import { ChildrenProps, User, Quote, Favorite } from "../types";
-import {
-  getAllUsers,
-  getAllQuotes,
-  getAllFavorites,
-} from "../server/api-actions";
+import { getAllUsers, getAllQuotes, getAllFavorites } from "../api-actions";
 
-export type SoulProvider = {
+export type SoulProviderType = {
   users: User[];
   quoteList: Quote[];
   favorites: Favorite[];
@@ -18,15 +14,17 @@ export type SoulProvider = {
   refreshFavorites: () => void;
 };
 
-export const SoulContext = createContext({} as SoulProvider);
+export const SoulContext = createContext({} as SoulProviderType);
 
 export const SoulProvider = ({ children }: ChildrenProps) => {
   const [users, setUsers] = useState([] as User[]);
   const [quoteList, setQuoteList] = useState([] as Quote[]);
   const [favorites, setFavorites] = useState([] as Favorite[]);
   const [activeUser, setActiveUser] = useState({} as User);
-  const [activeFavoriteCodes, setActiveFavoriteCodes] = useState([] as string[]);
-  
+  const [activeFavoriteCodes, setActiveFavoriteCodes] = useState(
+    [] as string[]
+  );
+
   const refreshUsers = () => {
     getAllUsers()
       .then((users) => setUsers(users))
@@ -56,7 +54,7 @@ export const SoulProvider = ({ children }: ChildrenProps) => {
 
   const checkForLocalUser = () => {
     const user = localStorage.getItem("active-user");
-    if (user) { 
+    if (user) {
       const localUser = JSON.parse(user);
       const localFavorites = favorites.filter(
         (favorite) => favorite.username === localUser.username
@@ -64,7 +62,7 @@ export const SoulProvider = ({ children }: ChildrenProps) => {
       setActiveUser(localUser);
       setActiveFavoriteCodes(localFavorites.map((favorite) => favorite.code));
     }
-  }
+  };
 
   useEffectOnce(() => {
     refreshUsers();

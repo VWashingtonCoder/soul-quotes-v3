@@ -1,4 +1,4 @@
-import { User, Quote, Favorite } from "../types";
+import { User, Quote, Favorite } from "./types";
 const BASE_URL = "http://localhost:3000";
 
 // Users
