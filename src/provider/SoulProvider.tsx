@@ -18,11 +18,18 @@ export type SoulProviderType = {
 
 export const SoulContext = createContext({} as SoulProviderType);
 
+const testUser = {
+  id: 2,
+  username: "testUser3",
+  password: "Password3",
+  email: "tu3@ex.co",
+};
+
 export const SoulProvider = ({ children }: ChildrenProps) => {
   const [users, setUsers] = useState([] as User[]);
   const [quoteList, setQuoteList] = useState([] as Quote[]);
   const [favorites, setFavorites] = useState([] as Favorite[]);
-  const [activeUser, setActiveUser] = useState({} as User);
+  const [activeUser, setActiveUser] = useState(testUser); // init: {} as User
   const [activeFavoriteCodes, setActiveFavoriteCodes] = useState(
     [] as string[]
   );

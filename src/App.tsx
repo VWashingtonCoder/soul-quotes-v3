@@ -1,8 +1,8 @@
 import logo from "./assets/images/logo.png";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useSoul } from "./custom-hooks";
 import HomePage from "./components/Home/HomePage";
-import AccountPage from "./components/Account/AccountPage";
+import AccountPage from "./components/Accounts/AccountPage";
 import FavoritesPage from "./components/Favorites/FavoritesPage";
 import CreatePage from "./components/Create/CreatePage";
 import LoginNotification from "./components/LoginNotification";
@@ -11,7 +11,6 @@ import "./App.css";
 function App() {
   const { activeUser, logoutUser } = useSoul();
 
-  console.log(activeUser);
   return (
     <Router>
       <>
@@ -30,7 +29,7 @@ function App() {
               <li>
                 {!activeUser.username ? (
                   <Link to="/account" className="nav-link">
-                    Account
+                    Join/Login
                   </Link>
                 ) : (
                   <button className="nav-link" onClick={logoutUser}>
@@ -39,9 +38,9 @@ function App() {
                 )}
               </li>
               <li>
-                  <Link to="/favorites" className="nav-link">
-                    Favorites
-                  </Link>
+                <Link to="/favorites" className="nav-link">
+                  Favorites
+                </Link>
               </li>
               <li>
                 <Link to="/create" className="nav-link">
@@ -50,12 +49,20 @@ function App() {
               </li>
             </ul>
           </nav>
-
-          <Route path="/"/>
-          <Route path="/account"/>
-          <Route path="/favorites"/>
-          <Route path="/create"/>
         </header>
+
+        <Routes>
+          <Route path="/" Component={HomePage} />
+          <Route path="/account" Component={AccountPage} />
+          <Route 
+            path="/favorites" 
+            Component={activeUser.username ? FavoritesPage : LoginNotification}
+          />
+          <Route 
+            path="/create"
+            Component={activeUser.username ? CreatePage : LoginNotification} 
+          />
+        </Routes>
       </>
     </Router>
   );
