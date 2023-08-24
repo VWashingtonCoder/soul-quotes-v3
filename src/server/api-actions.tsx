@@ -2,16 +2,8 @@ import { User, Quote, Favorite } from "../types";
 const BASE_URL = "http://localhost:3000";
 
 // Users
-export async function getUserByUsername(username: string) {
-  const params = `users/?username=${username}`;
-  const res = await fetch(`${BASE_URL}/${params}`);
-  const data = await res.json();
-  return data;
-}
-
-export async function getUserByEmail(email: string) {
-  const params = `users/?email=${email}`;
-  const res = await fetch(`${BASE_URL}/${params}`);
+export async function getAllUsers() {
+  const res = await fetch(`${BASE_URL}/users`);
   const data = await res.json();
   return data;
 }
@@ -56,9 +48,8 @@ export async function deleteQuote(id: number) {
 }
 
 // Favorites
-export async function getFavoritesByUsername(username: string) {
-  const params = `favoriteUserQuotes/?username=${username}`;
-  const res = await fetch(`${BASE_URL}/${params}`);
+export async function getAllFavorites() {
+  const res = await fetch(`${BASE_URL}/favoriteUserQuotes`);
   const data = await res.json();
   return data;
 }
