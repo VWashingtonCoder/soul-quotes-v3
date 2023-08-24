@@ -1,6 +1,11 @@
 import logo from "./assets/images/logo.png";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { useSoul } from "./custom-hooks";
+import HomePage from "./components/Home/HomePage";
+import AccountPage from "./components/Account/AccountPage";
+import FavoritesPage from "./components/Favorites/FavoritesPage";
+import CreatePage from "./components/Create/CreatePage";
+import LoginNotification from "./components/LoginNotification";
 import "./App.css";
 
 function App() {
